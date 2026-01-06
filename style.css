@@ -1,0 +1,119 @@
+/* Google font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 32px;
+    color: #ffffff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.count {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+form {
+    display: grid;
+    gap: 14px;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.field input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 6px;
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 0.3s ease;
+}
+
+.field input:focus {
+    outline: none;
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.6);
+}
+
+button {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 120, 160, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.success {
+    margin-top: 18px;
+    text-align: center;
+    font-weight: 500;
+    color: #00ffcc;
+    display: none;
+}
+
+/* Error state */
+.error-field input {
+    border: 2px solid #ff4d4f;
+    background-color: #ffecec;
+}
+
+.error-field label {
+    color: #ff4d4f;
+}
+
+/* Mobile friendly */
+@media (max-width: 480px) {
+    .container {
+        padding: 24px;
+        border-radius: 14px;
+    }
+}
