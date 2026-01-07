@@ -46,24 +46,22 @@ form.addEventListener("submit", function (event) {
     let course = courseSelect.value;
     const otherCourse = otherCourseInput.value.trim();
 
-    // Handle Other course
     if (course === "Other") {
         course = otherCourse;
     }
 
-    // Validation
     let isValid = true;
     let firstInvalidField = null;
 
-    // Required fields
     const requiredFields = [
-        { value: firstName, id: "firstName", type: "name" },
-        { value: lastName, id: "lastName", type: "name" },
+        { value: firstName, id: "firstName" },
+        { value: lastName, id: "lastName" },
         { value: dob, id: "dob" },
-        { value: phone, id: "phone", type: "phone" },
-        { value: course, id: "course", type: "course" }
+        { value: phone, id: "phone" },
+        { value: course, id: "course" }
     ];
 
+    // 🔹 STEP 1: REQUIRED FIELD CHECK ONLY
     requiredFields.forEach(field => {
         const input = document.getElementById(field.id) || otherCourseInput;
         const wrapper = input.parentElement;
@@ -73,38 +71,45 @@ form.addEventListener("submit", function (event) {
             isValid = false;
             firstInvalidField ??= input;
         }
-
-        // Name validation
-        if (field.type === "name" && field.value && !isValidName(field.value)) {
-            wrapper.classList.add("error-field");
-            alert(`Field "${input.previousElementSibling.textContent}" should contain only letters.`);
-            isValid = false;
-            firstInvalidField ??= input;
-        }
-
-        // Phone validation
-        if (field.type === "phone" && !/^\d{10}$/.test(field.value)) {
-            wrapper.classList.add("error-field");
-            alert(`Phone number must contain exactly 10 digits.`);
-            isValid = false;
-            firstInvalidField ??= input;
-        }
-
-        // Course validation (letters, spaces, dots, hyphens)
-        if (field.type === "course" && field.value && !isValidCourse(field.value)) {
-          wrapper.classList.add("error-field");
-          alert("Desired Course should only contain letters, spaces, dots or hyphens.");
-          isValid = false;
-          firstInvalidField ??= input;
-}
-
     });
 
     if (!isValid) {
+        alert("Please fill all required fields");
         firstInvalidField.focus();
         return;
     }
 
+    // 🔹 STEP 2: FORMAT VALIDATION (RUNS ONLY IF REQUIRED PASSES)
+
+    if (!isValidName(firstName)) {
+        document.getElementById("firstName").parentElement.classList.add("error-field");
+        alert("First Name should contain only letters.");
+        document.getElementById("firstName").focus();
+        return;
+    }
+
+    if (!isValidName(lastName)) {
+        document.getElementById("lastName").parentElement.classList.add("error-field");
+        alert("Last Name should contain only letters.");
+        document.getElementById("lastName").focus();
+        return;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+        document.getElementById("phone").parentElement.classList.add("error-field");
+        alert("Phone number must contain exactly 10 digits.");
+        document.getElementById("phone").focus();
+        return;
+    }
+
+    if (!isValidCourse(course)) {
+        courseSelect.parentElement.classList.add("error-field");
+        alert("Desired Course should only contain letters, spaces, dots or hyphens.");
+        courseSelect.focus();
+        return;
+    }
+
+    // ✅ SUCCESS (UNCHANGED)
     const student = {
         firstName,
         middleName,
@@ -115,7 +120,6 @@ form.addEventListener("submit", function (event) {
     };
 
     students.push(student);
-
     studentCountLabel.textContent = students.length;
     successMessage.style.display = "block";
     form.reset();
